@@ -47,39 +47,39 @@ export const AboutScreen: React.FC = () => {
   ];
 
   return (
-    <div className="w-full space-y-0 bg-[#F8FAFC]">
+    <div className="w-full space-y-0 bg-transparent">
       {/* Section 1: Product Introduction with Celestial Blue Header */}
-      <section className="bg-gradient-to-b from-[#1853ED] via-[#38BDF8] to-[#F8FAFC] py-16 lg:py-20 border-b border-sky-100 text-white">
+      <section className="py-16 lg:py-20 border-b border-slate-200/70 text-slate-900">
         <div className="w-full max-w-[1560px] mx-auto px-4 sm:px-6 lg:px-10 xl:px-12">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
             <div className="lg:col-span-7 space-y-6">
-              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/20 backdrop-blur-md border border-white/30 text-white text-xs font-bold">
+              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/65 backdrop-blur-md border border-white/80 text-slate-700 text-xs font-bold">
                 <Landmark className="w-3.5 h-3.5" />
                 <span>GIỚI THIỆU SẢN PHẨM (MÀN 2)</span>
               </div>
-              <h1 className="text-3xl sm:text-5xl font-black text-white tracking-tight drop-shadow-xs">
+              <h1 className="text-3xl sm:text-5xl font-black text-slate-900 tracking-tight drop-shadow-xs">
                 Nền Tảng AI Cấp Xã: Đột Phá Chuyển Đổi Số Chính Quyền Cơ Sở
               </h1>
-              <p className="text-sky-50 leading-relaxed text-base sm:text-lg">
+              <p className="text-slate-600 leading-relaxed text-base sm:text-lg">
                 AI Cấp Xã là giải pháp công nghệ tiên phong được phát triển nhằm mục tiêu giải quyết trực tiếp "nút thắt cổ chai" trong giải quyết thủ tục hành chính tại UBND xã, phường, thị trấn.
               </p>
-              <div className="space-y-3 pt-2 text-white">
-                <div className="flex items-start gap-3 bg-white/10 backdrop-blur-sm p-3.5 rounded-2xl border border-white/20">
-                  <CheckCircle2 className="w-5 h-5 text-sky-200 shrink-0 mt-0.5" />
-                  <p className="text-sm text-sky-50">
-                    <strong className="text-white">Trợ lý AI công dân:</strong> Giải đáp tự nhiên quy trình, hồ sơ, giấy tờ cần chuẩn bị theo Luật Cư trú, Luật Đất đai, Luật Hộ tịch mọi lúc mọi nơi.
+              <div className="space-y-3 pt-2">
+                <div className="flex items-start gap-3 bg-white/55 backdrop-blur-sm p-3.5 rounded-2xl border border-white/80">
+                  <CheckCircle2 className="w-5 h-5 text-blue-500 shrink-0 mt-0.5" />
+                  <p className="text-sm text-slate-600">
+                    <strong className="text-slate-900">Trợ lý AI công dân:</strong> Giải đáp tự nhiên quy trình, hồ sơ, giấy tờ cần chuẩn bị theo Luật Cư trú, Luật Đất đai, Luật Hộ tịch mọi lúc mọi nơi.
                   </p>
                 </div>
-                <div className="flex items-start gap-3 bg-white/10 backdrop-blur-sm p-3.5 rounded-2xl border border-white/20">
-                  <CheckCircle2 className="w-5 h-5 text-sky-200 shrink-0 mt-0.5" />
-                  <p className="text-sm text-sky-50">
-                    <strong className="text-white">Kho tri thức phân quyền:</strong> Tách biệt dữ liệu dùng chung toàn quốc, dữ liệu văn bản điều hành của xã, và hồ sơ nội bộ lưu hành hạn chế.
+                <div className="flex items-start gap-3 bg-white/55 backdrop-blur-sm p-3.5 rounded-2xl border border-white/80">
+                  <CheckCircle2 className="w-5 h-5 text-blue-500 shrink-0 mt-0.5" />
+                  <p className="text-sm text-slate-600">
+                    <strong className="text-slate-900">Kho tri thức phân quyền:</strong> Tách biệt dữ liệu dùng chung toàn quốc, dữ liệu văn bản điều hành của xã, và hồ sơ nội bộ lưu hành hạn chế.
                   </p>
                 </div>
-                <div className="flex items-start gap-3 bg-white/10 backdrop-blur-sm p-3.5 rounded-2xl border border-white/20">
-                  <CheckCircle2 className="w-5 h-5 text-sky-200 shrink-0 mt-0.5" />
-                  <p className="text-sm text-sky-50">
-                    <strong className="text-white">Bảo vệ dữ liệu tuyệt đối:</strong> Kiến trúc mã hóa cô lập hoàn toàn giữa các xã. Đội ngũ phát triển cam kết không xem nội dung hay thông tin cá nhân.
+                <div className="flex items-start gap-3 bg-white/55 backdrop-blur-sm p-3.5 rounded-2xl border border-white/80">
+                  <CheckCircle2 className="w-5 h-5 text-blue-500 shrink-0 mt-0.5" />
+                  <p className="text-sm text-slate-600">
+                    <strong className="text-slate-900">Bảo vệ dữ liệu tuyệt đối:</strong> Kiến trúc mã hóa cô lập hoàn toàn giữa các xã. Đội ngũ phát triển cam kết không xem nội dung hay thông tin cá nhân.
                   </p>
                 </div>
               </div>
@@ -112,7 +112,7 @@ export const AboutScreen: React.FC = () => {
       </section>
 
       {/* Section 2: Dev Team */}
-      <section className="bg-white py-16 border-b border-slate-200">
+      <section className="bg-white/45 backdrop-blur-[2px] py-16 border-b border-slate-200/60">
         <div className="w-full max-w-[1560px] mx-auto px-4 sm:px-6 lg:px-10 xl:px-12">
           <div className="text-center max-w-2xl mx-auto mb-12">
             <span className="text-xs font-bold uppercase tracking-wider text-blue-600">

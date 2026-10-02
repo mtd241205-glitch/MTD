@@ -171,7 +171,7 @@ export const HomeScreen: React.FC = () => {
   };
 
   return (
-    <div className="w-full bg-white space-y-16 pb-24 overflow-x-hidden">
+    <div className="w-full space-y-16 pb-24 overflow-x-hidden">
       {/* ========================================================
           HERO SECTION: Clean, minimal, crisp SaaS AI aesthetic
           Exact match to the reference image (Aashabul Imam / Dribbble)
@@ -179,7 +179,7 @@ export const HomeScreen: React.FC = () => {
       <section className="relative w-full pt-14 pb-20 lg:pt-20 lg:pb-28">
         {/* Soft radial ambient glows */}
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-6xl h-[500px] pointer-events-none -z-10 overflow-hidden">
-          <div className="absolute top-10 left-1/2 -translate-x-1/2 w-[700px] h-[350px] bg-gradient-to-tr from-blue-400/10 via-indigo-400/10 to-purple-400/10 rounded-full blur-3xl" />
+          <div className="absolute top-10 left-1/2 -translate-x-1/2 w-[700px] h-[350px] bg-gradient-to-tr from-sky-400/15 via-blue-400/10 to-indigo-400/10 rounded-full blur-3xl" />
         </div>
 
         <div className="w-full max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 text-center">
@@ -207,7 +207,7 @@ export const HomeScreen: React.FC = () => {
                   navigateTo(22);
                 }
               }}
-              className="px-8 py-3.5 rounded-full font-semibold text-sm text-white bg-slate-950 hover:bg-slate-800 transition-all shadow-lg shadow-slate-900/10 flex items-center gap-2 group cursor-pointer"
+              className="px-8 py-3.5 rounded-full font-semibold text-sm text-white bg-blue-700 hover:bg-blue-800 transition-all shadow-lg shadow-blue-900/10 flex items-center gap-2 group cursor-pointer"
             >
               <Bot className="w-4 h-4 text-indigo-400 group-hover:scale-110 transition-transform" />
               <span>Hỏi Trợ Lý AI Miễn Phí</span>
@@ -417,13 +417,13 @@ export const HomeScreen: React.FC = () => {
                       <svg className="w-full h-full" viewBox="0 0 600 200" preserveAspectRatio="none">
                         <defs>
                           <linearGradient id="curveFill" x1="0%" y1="0%" x2="0%" y2="100%">
-                            <stop offset="0%" stopColor="#3b82f6" stopOpacity="0.18" />
-                            <stop offset="100%" stopColor="#3b82f6" stopOpacity="0.0" />
+                            <stop offset="0%" stopColor="#729ac7" stopOpacity="0.18" />
+                            <stop offset="100%" stopColor="#729ac7" stopOpacity="0.0" />
                           </linearGradient>
                           <linearGradient id="strokeGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-                            <stop offset="0%" stopColor="#2563eb" />
-                            <stop offset="60%" stopColor="#3b82f6" />
-                            <stop offset="100%" stopColor="#60a5fa" />
+                            <stop offset="0%" stopColor="#5d82b0" />
+                            <stop offset="60%" stopColor="#729ac7" />
+                            <stop offset="100%" stopColor="#91b7e0" />
                           </linearGradient>
                         </defs>
 
@@ -449,10 +449,10 @@ export const HomeScreen: React.FC = () => {
                         />
 
                         {/* Chart Node Points */}
-                        <circle cx="140" cy="120" r="4" fill="#2563eb" stroke="#ffffff" strokeWidth="2" />
-                        <circle cx="280" cy="115" r="4" fill="#2563eb" stroke="#ffffff" strokeWidth="2" />
-                        <circle cx="420" cy="70" r="4" fill="#2563eb" stroke="#ffffff" strokeWidth="2" />
-                        <circle cx="560" cy="40" r="4.5" fill="#2563eb" stroke="#ffffff" strokeWidth="2" />
+                        <circle cx="140" cy="120" r="4" fill="#5d82b0" stroke="#ffffff" strokeWidth="2" />
+                        <circle cx="280" cy="115" r="4" fill="#5d82b0" stroke="#ffffff" strokeWidth="2" />
+                        <circle cx="420" cy="70" r="4" fill="#5d82b0" stroke="#ffffff" strokeWidth="2" />
+                        <circle cx="560" cy="40" r="4.5" fill="#5d82b0" stroke="#ffffff" strokeWidth="2" />
                       </svg>
                     </div>
                   </div>
@@ -470,7 +470,7 @@ export const HomeScreen: React.FC = () => {
                 <div className="flex items-center justify-between pb-3 border-b border-slate-100">
                   <div className="flex items-center gap-2.5">
                     {/* Overlapping colored icon circles like in image.png */}
-                    <div className="w-8 h-8 rounded-full bg-gradient-to-tr from-rose-500 via-indigo-500 to-blue-500 flex items-center justify-center text-white shadow-xs">
+                    <div className="w-8 h-8 rounded-full bg-gradient-to-tr from-sky-500 via-blue-600 to-indigo-600 flex items-center justify-center text-white shadow-xs">
                       <Sparkles className="w-4 h-4" />
                     </div>
                     <div>
@@ -497,7 +497,7 @@ export const HomeScreen: React.FC = () => {
                 {/* Conversation Body (Deep purple/indigo chat bubbles matching image.png) */}
                 <div className="mt-4 space-y-3 max-h-[300px] overflow-y-auto pr-1 text-left">
                   {/* AI Opening bubble (Dark purple/indigo container like image.png) */}
-                  <div className="bg-[#1e1346] text-white p-3.5 rounded-2xl rounded-tl-xs text-xs leading-relaxed shadow-sm">
+                  <div className="bg-[#244b70] text-white p-3.5 rounded-2xl rounded-tl-xs text-xs leading-relaxed shadow-sm">
                     <p className="font-medium text-slate-100">
                       Xin chào! Bạn có muốn biết Trợ lý AI có thể hỗ trợ giải quyết thủ tục gì cho bạn hôm nay không?
                     </p>
@@ -519,7 +519,7 @@ export const HomeScreen: React.FC = () => {
                   </div>
 
                   {/* Detailed AI Response bubble (Dark purple/indigo like image.png) */}
-                  <div className="bg-[#1e1346] text-white p-4 rounded-2xl rounded-tl-xs text-xs leading-relaxed shadow-sm space-y-2">
+                  <div className="bg-[#244b70] text-white p-4 rounded-2xl rounded-tl-xs text-xs leading-relaxed shadow-sm space-y-2">
                     <div className="font-semibold text-slate-100 flex items-center justify-between">
                       <span>{activePrompt.answerSummary}</span>
                       <button
@@ -534,7 +534,7 @@ export const HomeScreen: React.FC = () => {
                     <ul className="space-y-1 text-slate-200 pl-1 text-[11px]">
                       {activePrompt.points.map((p, idx) => (
                         <li key={idx} className="flex items-start gap-1.5">
-                          <span className="text-rose-400 font-bold">•</span>
+                          <span className="text-sky-500 font-bold">•</span>
                           <span>{p}</span>
                         </li>
                       ))}
@@ -573,7 +573,7 @@ export const HomeScreen: React.FC = () => {
                         onClick={() => setActivePromptIndex(idx)}
                         className={`text-[11px] px-2.5 py-1 rounded-full font-medium transition-all cursor-pointer ${
                           activePromptIndex === idx
-                            ? 'bg-slate-900 text-white font-semibold'
+                            ? 'bg-blue-100 text-blue-800 font-semibold'
                             : 'bg-slate-100 text-slate-600 hover:bg-slate-200 hover:text-slate-900'
                         }`}
                       >
@@ -587,7 +587,7 @@ export const HomeScreen: React.FC = () => {
                       if (currentRole === 'guest') navigateTo(13, 'redirect_to_22');
                       else navigateTo(22);
                     }}
-                    className="w-full mt-3 py-2.5 rounded-full bg-slate-950 hover:bg-slate-800 text-white font-semibold text-xs flex items-center justify-center gap-2 transition-all cursor-pointer shadow-xs"
+                    className="w-full mt-3 py-2.5 rounded-full bg-blue-700 hover:bg-blue-800 text-white font-semibold text-xs flex items-center justify-center gap-2 transition-all cursor-pointer shadow-xs"
                   >
                     <span>Vào khung chat trực tiếp</span>
                     <ArrowRight className="w-3.5 h-3.5" />
@@ -921,10 +921,10 @@ export const HomeScreen: React.FC = () => {
           SECURITY & PRIVACY ARCHITECTURE
           ======================================================== */}
       <section className="w-full max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="bg-slate-950 text-white rounded-3xl p-8 sm:p-12 shadow-xl border border-slate-800">
+        <div className="bg-blue-200/80 text-slate-900 rounded-3xl p-8 sm:p-12 shadow-xl border border-blue-300">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
             <div className="lg:col-span-7 space-y-4">
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-800 text-blue-400 border border-slate-700 text-xs font-bold">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white text-blue-900 border border-blue-300 text-xs font-bold">
                 <ShieldCheck className="w-3.5 h-3.5" />
                 <span>CAM KẾT CÔNG NGHỆ & BẢO MẬT DỮ LIỆU</span>
               </div>
@@ -933,20 +933,20 @@ export const HomeScreen: React.FC = () => {
                 Kiến Trúc Tách Biệt Kho Dữ Liệu Từng Xã
               </h2>
 
-              <p className="text-sm text-slate-400 leading-relaxed">
+              <p className="text-sm text-slate-800 leading-relaxed">
                 Đội ngũ phát triển tuân thủ nghiêm ngặt nguyên tắc bảo vệ quyền riêng tư: Cơ sở dữ liệu và kho vector tri thức được phân lập riêng biệt cho từng xã. Đội phát triển hoàn toàn không truy cập dữ liệu cá nhân hay nội dung tài liệu của xã trong mọi trường hợp.
               </p>
 
               <div className="pt-2 flex flex-wrap gap-3">
                 <button
                   onClick={() => navigateTo(2)}
-                  className="px-6 py-2.5 rounded-full bg-white text-slate-900 font-bold text-xs hover:bg-slate-100 transition-colors cursor-pointer"
+                  className="px-6 py-2.5 rounded-full bg-blue-700 text-white font-bold text-xs hover:bg-blue-800 transition-colors cursor-pointer"
                 >
                   Tìm hiểu thêm giới thiệu (2)
                 </button>
                 <button
                   onClick={() => navigateTo(9)}
-                  className="px-6 py-2.5 rounded-full bg-slate-800 text-white font-bold text-xs border border-slate-700 hover:bg-slate-700 transition-colors cursor-pointer"
+                  className="px-6 py-2.5 rounded-full bg-white text-blue-800 font-bold text-xs border border-blue-300 hover:bg-blue-50 transition-colors cursor-pointer"
                 >
                   Chính sách bảo mật (9)
                 </button>
@@ -954,18 +954,18 @@ export const HomeScreen: React.FC = () => {
             </div>
 
             <div className="lg:col-span-5 grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <div className="bg-slate-900/90 border border-slate-800 p-5 sm:p-6 rounded-2xl">
-                <ShieldCheck className="w-8 h-8 text-emerald-400 mb-2.5" />
-                <h4 className="text-sm font-bold text-white">Bảo mật đa tầng</h4>
-                <p className="text-xs text-slate-400 mt-1 leading-relaxed">
+              <div className="bg-white border border-blue-300 p-5 sm:p-6 rounded-2xl shadow-md">
+                <ShieldCheck className="w-8 h-8 text-blue-600 mb-2.5" />
+                <h4 className="text-sm font-bold text-slate-900">Bảo mật đa tầng</h4>
+                <p className="text-xs text-slate-600 mt-1 leading-relaxed">
                   Mã hóa nội dung, ẩn danh mã tài liệu DOC-xxxx khi đội kỹ thuật hỗ trợ khắc phục sự cố.
                 </p>
               </div>
 
-              <div className="bg-slate-900/90 border border-slate-800 p-5 sm:p-6 rounded-2xl">
-                <Users className="w-8 h-8 text-blue-400 mb-2.5" />
-                <h4 className="text-sm font-bold text-white">Kiểm soát phân quyền</h4>
-                <p className="text-xs text-slate-400 mt-1 leading-relaxed">
+              <div className="bg-white border border-blue-300 p-5 sm:p-6 rounded-2xl shadow-md">
+                <Users className="w-8 h-8 text-blue-600 mb-2.5" />
+                <h4 className="text-sm font-bold text-slate-900">Kiểm soát phân quyền</h4>
+                <p className="text-xs text-slate-600 mt-1 leading-relaxed">
                   Lọc quyền ngay tại khâu truy xuất vector, ngăn tuyệt đối rò rỉ tài liệu nội bộ giữa các xã.
                 </p>
               </div>

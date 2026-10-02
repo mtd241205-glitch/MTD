@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useLayoutEffect, useRef, useState } from 'react';
 import { AppProvider, useApp } from './context/AppContext';
 import { RoleQuickSwitcher } from './components/common/RoleQuickSwitcher';
 import { Navbar } from './components/common/Navbar';
@@ -59,6 +59,56 @@ import { MaintenanceScreen } from './components/system/MaintenanceScreen';
 import { SessionExpiredModal } from './components/system/SessionExpiredModal';
 import { ConnectionErrorBanner } from './components/system/ConnectionErrorBanner';
 import { CommuneSuspendedScreen } from './components/system/CommuneSuspendedScreen';
+import { ToastProvider } from './context/ToastContext';
+
+const PAGE_TRANSITION_DURATION = 380;
+
+interface PageSnapshot {
+  pageKey: string;
+  children: React.ReactNode;
+}
+
+const PageTransition: React.FC<{ pageKey: string; children: React.ReactNode }> = ({
+  pageKey,
+  children,
+}) => {
+  const previousPage = useRef<PageSnapshot>({ pageKey, children });
+  const [outgoingPage, setOutgoingPage] = useState<PageSnapshot | null>(null);
+
+  useLayoutEffect(() => {
+    if (previousPage.current.pageKey !== pageKey) {
+      setOutgoingPage(previousPage.current);
+      previousPage.current = { pageKey, children };
+      return;
+    }
+
+    previousPage.current.children = children;
+  }, [pageKey, children]);
+
+  React.useEffect(() => {
+    if (!outgoingPage) return;
+    const timeout = window.setTimeout(() => setOutgoingPage(null), PAGE_TRANSITION_DURATION);
+    return () => window.clearTimeout(timeout);
+  }, [outgoingPage]);
+
+  return (
+    <div className="page-transition">
+      {outgoingPage && (
+        <div
+          key={`outgoing-${outgoingPage.pageKey}`}
+          className="page-transition__layer page-transition__outgoing"
+          aria-hidden="true"
+          inert={true}
+        >
+          {outgoingPage.children}
+        </div>
+      )}
+      <div key={`current-${pageKey}`} className="page-transition__layer page-transition__current">
+        {children}
+      </div>
+    </div>
+  );
+};
 
 const MainAppContent: React.FC = () => {
   const {
@@ -67,39 +117,75 @@ const MainAppContent: React.FC = () => {
     isSessionExpired,
   } = useApp();
 
+  React.useEffect(() => {
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reducedMotion) return;
+
+    const textBlocks = document.querySelectorAll<HTMLElement>(
+      '.page-transition__current h1, .page-transition__current h2, .page-transition__current h3, .page-transition__current h4, .page-transition__current p'
+    );
+    textBlocks.forEach((element, index) => {
+      element.style.setProperty('--text-reveal-delay', `${Math.min(index * 45, 240)}ms`);
+      element.dataset.textReveal = 'enter';
+    });
+
+    const cards = document.querySelectorAll<HTMLElement>(
+      '.page-transition__current main div[class*="rounded-3xl"][class*="border"]'
+    );
+    const pendingCards: HTMLElement[] = [];
+
+    cards.forEach((card) => {
+      if (card.getBoundingClientRect().top > window.innerHeight * 0.9) {
+        card.dataset.scrollReveal = 'pending';
+        pendingCards.push(card);
+      }
+    });
+
+    if (pendingCards.length === 0) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const card = entry.target as HTMLElement;
+            card.dataset.scrollReveal = 'visible';
+            observer.unobserve(card);
+          }
+        });
+      },
+      { threshold: 0.08, rootMargin: '0px 0px -32px 0px' }
+    );
+
+    pendingCards.forEach((card) => observer.observe(card));
+    return () => observer.disconnect();
+  }, [currentScreen, isMaintenance]);
+
+  let screenContent: React.ReactNode;
+
   // Full Screen Special States (Maintenance Screen 56)
   if (isMaintenance || currentScreen === 56) {
-    return (
+    screenContent = (
       <>
         <RoleQuickSwitcher />
         <MaintenanceScreen />
       </>
     );
-  }
-
-  // Commune Suspended Screen 59
-  if (currentScreen === 59) {
-    return (
+  } else if (currentScreen === 59) {
+    screenContent = (
       <>
         <RoleQuickSwitcher />
         <CommuneSuspendedScreen />
       </>
     );
-  }
-
-  // SysAdmin Login Screen 46
-  if (currentScreen === 46) {
-    return (
+  } else if (currentScreen === 46) {
+    screenContent = (
       <>
         <RoleQuickSwitcher />
         <SysAdminLoginScreen />
       </>
     );
-  }
-
-  // SysAdmin Area (Screens 47 through 53)
-  if (currentScreen >= 47 && currentScreen <= 53) {
-    return (
+  } else if (currentScreen >= 47 && currentScreen <= 53) {
+    screenContent = (
       <>
         <RoleQuickSwitcher />
         <SysAdminLayout>
@@ -114,77 +200,71 @@ const MainAppContent: React.FC = () => {
         {isSessionExpired && <SessionExpiredModal />}
       </>
     );
-  }
-
-  // Force Change Password on First Login (Screen 16) - without full standard navbar per spec
-  if (currentScreen === 16) {
-    return (
+  } else if (currentScreen === 16) {
+    screenContent = (
       <>
         <RoleQuickSwitcher />
         <ForceChangePasswordScreen />
       </>
     );
+  } else {
+    // Commune Site (Screens 1 to 45, 54, 55)
+    screenContent = (
+      <div className="app-canvas min-h-screen bg-white flex flex-col font-sans text-slate-800 antialiased">
+        <RoleQuickSwitcher />
+        <ConnectionErrorBanner />
+        <Navbar />
+        <main className="flex-1 screen-canvas">
+          {currentScreen === 1 && <HomeScreen />}
+          {currentScreen === 2 && <AboutScreen />}
+          {currentScreen === 3 && <ContactScreen />}
+          {currentScreen === 4 && <DocumentsScreen />}
+          {currentScreen === 5 && <DocumentDetailScreen />}
+          {currentScreen === 6 && <ProceduresScreen />}
+          {currentScreen === 7 && <ProcedureDetailScreen />}
+          {currentScreen === 8 && <TermsScreen />}
+          {currentScreen === 9 && <PrivacyScreen />}
+          {currentScreen === 10 && <RegisterScreen />}
+          {currentScreen === 12 && <RegisterResultScreen />}
+          {currentScreen === 13 && <LoginScreen />}
+          {currentScreen === 14 && <ForgotPasswordScreen />}
+          {currentScreen === 15 && <CommuneAdminResetRequestScreen />}
+          {currentScreen === 17 && <ProfileScreen />}
+          {currentScreen === 21 && <NotificationPage />}
+          {currentScreen === 22 && <ChatbotScreen />}
+          {currentScreen === 24 && <SharedChatScreen />}
+          {currentScreen === 26 && <AiDocumentsScreen />}
+          {currentScreen === 30 && <UserManagementScreen />}
+          {currentScreen === 32 && <UserDetailScreen />}
+          {currentScreen === 34 && <DataManagementScreen />}
+          {currentScreen === 35 && <AddDocumentScreen />}
+          {currentScreen === 36 && <CommuneDocDetailScreen />}
+          {currentScreen === 37 && <EditDocumentScreen />}
+          {currentScreen === 41 && <CommuneDashboardScreen />}
+          {currentScreen === 44 && <FeedbackManagementScreen />}
+          {currentScreen === 45 && <ServiceInfoScreen />}
+          {currentScreen === 54 && <NotFoundScreen />}
+          {currentScreen === 55 && <ForbiddenScreen />}
+        </main>
+        <Footer />
+        {isSessionExpired && <SessionExpiredModal />}
+      </div>
+    );
   }
 
-  // Commune Site (Screens 1 to 45, 54, 55)
   return (
-    <div className="min-h-screen bg-white flex flex-col font-sans text-slate-800 antialiased">
-      {/* Test Toolbar with Role Switcher & Screen status */}
-      <RoleQuickSwitcher />
-
-      {/* Screen 58: Connection error banner */}
-      <ConnectionErrorBanner />
-
-      {/* Screen 0.1: Top Navigation Bar */}
-      <Navbar />
-
-      {/* Main Screen Renderer */}
-      <main className="flex-1">
-        {currentScreen === 1 && <HomeScreen />}
-        {currentScreen === 2 && <AboutScreen />}
-        {currentScreen === 3 && <ContactScreen />}
-        {currentScreen === 4 && <DocumentsScreen />}
-        {currentScreen === 5 && <DocumentDetailScreen />}
-        {currentScreen === 6 && <ProceduresScreen />}
-        {currentScreen === 7 && <ProcedureDetailScreen />}
-        {currentScreen === 8 && <TermsScreen />}
-        {currentScreen === 9 && <PrivacyScreen />}
-        {currentScreen === 10 && <RegisterScreen />}
-        {currentScreen === 12 && <RegisterResultScreen />}
-        {currentScreen === 13 && <LoginScreen />}
-        {currentScreen === 14 && <ForgotPasswordScreen />}
-        {currentScreen === 15 && <CommuneAdminResetRequestScreen />}
-        {currentScreen === 17 && <ProfileScreen />}
-        {currentScreen === 21 && <NotificationPage />}
-        {currentScreen === 22 && <ChatbotScreen />}
-        {currentScreen === 24 && <SharedChatScreen />}
-        {currentScreen === 26 && <AiDocumentsScreen />}
-        {currentScreen === 30 && <UserManagementScreen />}
-        {currentScreen === 32 && <UserDetailScreen />}
-        {currentScreen === 34 && <DataManagementScreen />}
-        {currentScreen === 35 && <AddDocumentScreen />}
-        {currentScreen === 36 && <CommuneDocDetailScreen />}
-        {currentScreen === 37 && <EditDocumentScreen />}
-        {currentScreen === 41 && <CommuneDashboardScreen />}
-        {currentScreen === 44 && <FeedbackManagementScreen />}
-        {currentScreen === 45 && <ServiceInfoScreen />}
-        {currentScreen === 54 && <NotFoundScreen />}
-        {currentScreen === 55 && <ForbiddenScreen />}
-      </main>
-
-      {/* Screen 0.3: Footer */}
-      <Footer />
-
-      {/* Screen 57: Session expired modal */}
-      {isSessionExpired && <SessionExpiredModal />}
-    </div>
+    <PageTransition pageKey={`${currentScreen}-${isMaintenance}`}>
+      {screenContent}
+    </PageTransition>
   );
 };
 
 export default function App() {
   return (
-    <AppProvider>
-      <MainAppContent />
-    </AppProvider>
+    <ToastProvider>
+      <AppProvider>
+        <MainAppContent />
+      </AppProvider>
+    </ToastProvider>
   );
 }

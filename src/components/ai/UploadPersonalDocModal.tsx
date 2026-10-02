@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useApp } from '../../context/AppContext';
 import { Upload, X, FileText, CheckCircle2, AlertCircle } from 'lucide-react';
+import { useToast } from '../../context/ToastContext';
 
 interface UploadPersonalDocModalProps {
   onClose: () => void;
@@ -8,6 +9,7 @@ interface UploadPersonalDocModalProps {
 
 export const UploadPersonalDocModal: React.FC<UploadPersonalDocModalProps> = ({ onClose }) => {
   const { addPersonalDoc } = useApp();
+  const { showToast, dismissToast } = useToast();
 
   const [files, setFiles] = useState<
     Array<{ name: string; size: string; content: string; progress: number; error?: string }>
@@ -46,6 +48,7 @@ export const UploadPersonalDocModal: React.FC<UploadPersonalDocModalProps> = ({ 
 
   const handleUploadSubmit = () => {
     setIsUploading(true);
+    const loadingToastId = showToast('loading', 'Đang xử lý tài liệu tải lên...', 0);
     setTimeout(() => {
       files.forEach((f) => {
         addPersonalDoc({
@@ -59,6 +62,8 @@ export const UploadPersonalDocModal: React.FC<UploadPersonalDocModalProps> = ({ 
         });
       });
       setIsUploading(false);
+      dismissToast(loadingToastId);
+      showToast('success', `Đã xử lý ${files.length} tài liệu thành công.`);
       onClose();
     }, 600);
   };
@@ -143,8 +148,14 @@ export const UploadPersonalDocModal: React.FC<UploadPersonalDocModalProps> = ({ 
             disabled={files.length === 0 || isUploading}
             onClick={handleUploadSubmit}
             className="px-5 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-700 disabled:opacity-50 text-white font-bold text-xs shadow-sm transition-all"
+            aria-busy={isUploading}
           >
-            {isUploading ? 'Đang bóc tách văn bản...' : `Tải lên (${files.length} tệp)`}
+            {isUploading ? (
+              <span className="inline-flex items-center gap-2">
+                <span className="h-3.5 w-3.5 rounded-full border-2 border-white/40 border-t-white animate-spin" />
+                Đang bóc tách văn bản...
+              </span>
+            ) : `Tải lên (${files.length} tệp)`}
           </button>
         </div>
       </div>

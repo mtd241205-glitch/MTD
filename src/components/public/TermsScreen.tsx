@@ -9,7 +9,7 @@ export const TermsScreen: React.FC = () => {
     <div className="max-w-4xl mx-auto px-4 py-12 space-y-8">
       <div className="flex items-center justify-between border-b border-slate-200 pb-6">
         <div>
-          <span className="text-xs font-bold text-red-600 uppercase tracking-wider">
+          <span className="text-xs font-bold text-blue-600 uppercase tracking-wider">
             Văn bản pháp lý (Màn 8)
           </span>
           <h1 className="text-3xl font-black text-slate-900 mt-1">Điều Khoản Sử Dụng Dịch Vụ</h1>

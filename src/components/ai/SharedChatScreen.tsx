@@ -53,7 +53,7 @@ export const SharedChatScreen: React.FC = () => {
               <div
                 className={`max-w-[85%] rounded-3xl p-4 sm:p-5 ${
                   msg.role === 'user'
-                    ? 'bg-red-600 text-white rounded-tr-xs'
+                    ? 'bg-blue-700 text-white rounded-tr-xs'
                     : 'bg-slate-50 border border-slate-200 rounded-tl-xs'
                 }`}
               >

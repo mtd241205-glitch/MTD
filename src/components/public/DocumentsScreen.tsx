@@ -115,7 +115,7 @@ export const DocumentsScreen: React.FC = () => {
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-8">
       {/* Header */}
       <div>
-        <div className="flex items-center gap-2 text-xs font-bold text-red-600 uppercase tracking-wider">
+        <div className="flex items-center gap-2 text-xs font-bold text-blue-600 uppercase tracking-wider">
           <BookOpen className="w-4 h-4" />
           <span>Tra cứu văn bản, quy phạm & chỉ đạo điều hành (Màn 4)</span>
         </div>
@@ -140,7 +140,7 @@ export const DocumentsScreen: React.FC = () => {
                 setCurrentPage(1);
               }}
               placeholder="Nhập từ khóa tìm kiếm, số hiệu, trích yếu văn bản..."
-              className="w-full pl-12 pr-4 py-3 rounded-2xl border border-slate-200 text-sm focus:ring-2 focus:ring-red-500 focus:outline-hidden"
+              className="w-full pl-12 pr-4 py-3 rounded-2xl border border-slate-200 text-sm focus:ring-2 focus:ring-blue-500 focus:outline-hidden"
             />
           </div>
 
@@ -170,7 +170,7 @@ export const DocumentsScreen: React.FC = () => {
                 value={item.value}
                 checked={searchField === item.value}
                 onChange={() => setSearchField(item.value as any)}
-                className="text-red-600 focus:ring-red-500"
+                className="text-blue-600 focus:ring-blue-500"
               />
               <span>{item.label}</span>
             </label>
@@ -185,7 +185,7 @@ export const DocumentsScreen: React.FC = () => {
               <select
                 value={docTypeFilter}
                 onChange={(e) => setDocTypeFilter(e.target.value)}
-                className="w-full px-3 py-2 rounded-xl border border-slate-200 text-xs focus:ring-red-500"
+                className="w-full px-3 py-2 rounded-xl border border-slate-200 text-xs focus:ring-blue-500"
               >
                 <option value="">Tất cả loại văn bản</option>
                 <option value="Luật">Luật</option>
@@ -205,7 +205,7 @@ export const DocumentsScreen: React.FC = () => {
                 value={agencyFilter}
                 onChange={(e) => setAgencyFilter(e.target.value)}
                 placeholder="Ví dụ: UBND Xã Hòa Lạc, Quốc hội..."
-                className="w-full px-3 py-2 rounded-xl border border-slate-200 text-xs focus:ring-red-500"
+                className="w-full px-3 py-2 rounded-xl border border-slate-200 text-xs focus:ring-blue-500"
               />
             </div>
 
@@ -214,7 +214,7 @@ export const DocumentsScreen: React.FC = () => {
               <select
                 value={validityFilter}
                 onChange={(e) => setValidityFilter(e.target.value)}
-                className="w-full px-3 py-2 rounded-xl border border-slate-200 text-xs focus:ring-red-500"
+                className="w-full px-3 py-2 rounded-xl border border-slate-200 text-xs focus:ring-blue-500"
               >
                 <option value="">Tất cả tình trạng</option>
                 <option value="Còn hiệu lực">Còn hiệu lực</option>
@@ -229,7 +229,7 @@ export const DocumentsScreen: React.FC = () => {
                 <select
                   value={sourceFilter}
                   onChange={(e) => setSourceFilter(e.target.value)}
-                  className="w-full px-3 py-2 rounded-xl border border-slate-200 text-xs focus:ring-red-500"
+                  className="w-full px-3 py-2 rounded-xl border border-slate-200 text-xs focus:ring-blue-500"
                 >
                   <option value="all">Tất cả nguồn</option>
                   <option value="shared">Dùng chung</option>
@@ -287,7 +287,7 @@ export const DocumentsScreen: React.FC = () => {
                         {doc.issueDate}
                       </td>
                       <td className="px-4 py-3.5">
-                        <div className="font-semibold text-slate-900 group-hover:text-red-600 transition-colors line-clamp-2 max-w-sm">
+                        <div className="font-semibold text-slate-900 group-hover:text-blue-600 transition-colors line-clamp-2 max-w-sm">
                           {doc.title}
                         </div>
                       </td>
@@ -338,7 +338,7 @@ export const DocumentsScreen: React.FC = () => {
         <div className="lg:col-span-4 space-y-6">
           <div className="bg-white rounded-3xl p-6 border border-slate-200 shadow-sm">
             <h3 className="text-sm font-bold text-slate-900 mb-4 flex items-center gap-2">
-              <FileText className="w-4 h-4 text-red-600" />
+              <FileText className="w-4 h-4 text-blue-600" />
               <span>Văn bản xem gần đây</span>
             </h3>
 
@@ -347,13 +347,13 @@ export const DocumentsScreen: React.FC = () => {
                 <div
                   key={doc.id}
                   onClick={() => navigateTo(5, doc.id)}
-                  className="p-3 rounded-2xl bg-slate-50 hover:bg-red-50/50 border border-slate-100 transition-colors cursor-pointer group"
+                  className="p-3 rounded-2xl bg-slate-50 hover:bg-blue-50/70 border border-slate-100 transition-colors cursor-pointer group"
                 >
                   <div className="flex items-center justify-between text-[11px] mb-1">
                     <span className="font-mono text-slate-500 font-semibold">{doc.docNumber}</span>
                     {getScopeBadge(doc.scope)}
                   </div>
-                  <h4 className="text-xs font-semibold text-slate-800 group-hover:text-red-600 line-clamp-2">
+                  <h4 className="text-xs font-semibold text-slate-800 group-hover:text-blue-600 line-clamp-2">
                     {doc.title}
                   </h4>
                 </div>

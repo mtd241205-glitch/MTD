@@ -87,7 +87,7 @@ export const ProceduresScreen: React.FC = () => {
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-8">
       {/* Header */}
       <div>
-        <div className="flex items-center gap-2 text-xs font-bold text-red-600 uppercase tracking-wider">
+        <div className="flex items-center gap-2 text-xs font-bold text-blue-600 uppercase tracking-wider">
           <ClipboardList className="w-4 h-4" />
           <span>Dịch vụ công & Một cửa cấp xã (Màn 6)</span>
         </div>
@@ -112,7 +112,7 @@ export const ProceduresScreen: React.FC = () => {
                 setCurrentPage(1);
               }}
               placeholder="Nhập tên thủ tục, mã thủ tục (ví dụ: khai sinh, kết hôn, chứng thực...)"
-              className="w-full pl-12 pr-4 py-3 rounded-2xl border border-slate-200 text-sm focus:ring-2 focus:ring-red-500 focus:outline-hidden"
+              className="w-full pl-12 pr-4 py-3 rounded-2xl border border-slate-200 text-sm focus:ring-2 focus:ring-blue-500 focus:outline-hidden"
             />
           </div>
 
@@ -142,7 +142,7 @@ export const ProceduresScreen: React.FC = () => {
                 value={item.value}
                 checked={searchField === item.value}
                 onChange={() => setSearchField(item.value as any)}
-                className="text-red-600 focus:ring-red-500"
+                className="text-blue-600 focus:ring-blue-500"
               />
               <span>{item.label}</span>
             </label>
@@ -157,7 +157,7 @@ export const ProceduresScreen: React.FC = () => {
               <select
                 value={fieldFilter}
                 onChange={(e) => setFieldFilter(e.target.value)}
-                className="w-full px-3 py-2 rounded-xl border border-slate-200 text-xs focus:ring-red-500"
+                className="w-full px-3 py-2 rounded-xl border border-slate-200 text-xs focus:ring-blue-500"
               >
                 <option value="">Tất cả lĩnh vực</option>
                 <option value="Hộ tịch - Tư pháp">Hộ tịch - Tư pháp</option>
@@ -173,7 +173,7 @@ export const ProceduresScreen: React.FC = () => {
                 <select
                   value={sourceFilter}
                   onChange={(e) => setSourceFilter(e.target.value)}
-                  className="w-full px-3 py-2 rounded-xl border border-slate-200 text-xs focus:ring-red-500"
+                  className="w-full px-3 py-2 rounded-xl border border-slate-200 text-xs focus:ring-blue-500"
                 >
                   <option value="all">Tất cả nguồn</option>
                   <option value="shared">Dùng chung (Quốc gia)</option>
@@ -219,11 +219,11 @@ export const ProceduresScreen: React.FC = () => {
                       onClick={() => navigateTo(7, proc.id)}
                       className="hover:bg-slate-50/80 transition-colors cursor-pointer group"
                     >
-                      <td className="px-4 py-3.5 font-mono font-semibold text-red-600 whitespace-nowrap">
+                      <td className="px-4 py-3.5 font-mono font-semibold text-blue-600 whitespace-nowrap">
                         {proc.docNumber}
                       </td>
                       <td className="px-4 py-3.5">
-                        <div className="font-semibold text-slate-900 group-hover:text-red-600 transition-colors line-clamp-2 max-w-sm">
+                        <div className="font-semibold text-slate-900 group-hover:text-blue-600 transition-colors line-clamp-2 max-w-sm">
                           {proc.title}
                         </div>
                       </td>
@@ -288,7 +288,7 @@ export const ProceduresScreen: React.FC = () => {
                   className="p-3 rounded-2xl bg-slate-50 hover:bg-emerald-50/50 border border-slate-100 transition-colors cursor-pointer group"
                 >
                   <div className="flex items-center justify-between text-[11px] mb-1">
-                    <span className="font-mono text-red-600 font-semibold">{proc.docNumber}</span>
+                    <span className="font-mono text-blue-600 font-semibold">{proc.docNumber}</span>
                     {getScopeBadge(proc.scope)}
                   </div>
                   <h4 className="text-xs font-semibold text-slate-800 group-hover:text-emerald-700 line-clamp-2">

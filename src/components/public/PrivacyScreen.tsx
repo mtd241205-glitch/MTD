@@ -38,7 +38,7 @@ export const PrivacyScreen: React.FC = () => {
       <div className="prose prose-slate max-w-none text-sm text-slate-700 leading-relaxed space-y-6">
         <section className="space-y-3">
           <h3 className="text-base font-bold text-slate-900 flex items-center gap-2">
-            <Lock className="w-4 h-4 text-red-600" />
+            <Lock className="w-4 h-4 text-blue-600" />
             <span>1. Cơ chế mã hóa và cô lập dữ liệu theo xã</span>
           </h3>
           <p>

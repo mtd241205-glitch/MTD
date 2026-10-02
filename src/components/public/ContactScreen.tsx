@@ -12,9 +12,11 @@ import {
   Building,
   Headphones,
 } from 'lucide-react';
+import { useToast } from '../../context/ToastContext';
 
 export const ContactScreen: React.FC = () => {
   const { currentUser, currentCommune, submitFeedback, navigateTo } = useApp();
+  const { showToast } = useToast();
 
   const [feedbackContent, setFeedbackContent] = useState('');
   const [feedbackContact, setFeedbackContact] = useState(
@@ -28,10 +30,12 @@ export const ContactScreen: React.FC = () => {
     e.preventDefault();
     if (!feedbackContent.trim()) {
       setErrorMsg('Vui lòng nhập nội dung phản ánh, góp ý.');
+      showToast('warning', 'Vui lòng nhập nội dung phản ánh, góp ý.');
       return;
     }
     if (!feedbackContact.trim()) {
       setErrorMsg('Vui lòng cung cấp số điện thoại hoặc email liên hệ.');
+      showToast('warning', 'Vui lòng cung cấp số điện thoại hoặc email liên hệ.');
       return;
     }
 
@@ -39,10 +43,11 @@ export const ContactScreen: React.FC = () => {
     setIsSuccess(true);
     setFeedbackContent('');
     setErrorMsg('');
+    showToast('success', 'Gửi phản ánh thành công. Cảm ơn bạn đã đóng góp.');
   };
 
   return (
-    <div className="w-full max-w-[1560px] mx-auto px-4 sm:px-6 lg:px-10 xl:px-12 py-12 space-y-12 bg-[#F8FAFC]">
+    <div className="w-full max-w-[1560px] mx-auto px-4 sm:px-6 lg:px-10 xl:px-12 py-12 space-y-12">
       <div>
         <span className="text-xs font-bold text-blue-600 uppercase tracking-wider">
           Thông tin liên hệ & Đóng góp ý kiến (Màn 3)
@@ -222,7 +227,7 @@ export const ContactScreen: React.FC = () => {
               )}
 
               {errorMsg && (
-                <div className="p-3 rounded-xl bg-rose-50 border border-rose-200 text-rose-700 text-xs font-semibold flex items-center gap-2">
+                <div className="validation-message p-3 rounded-xl bg-rose-50 border border-rose-200 text-rose-700 text-xs font-semibold flex items-center gap-2">
                   <AlertCircle className="w-4 h-4 shrink-0" />
                   <span>{errorMsg}</span>
                 </div>

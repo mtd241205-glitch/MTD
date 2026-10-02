@@ -29,6 +29,7 @@ import {
 } from 'lucide-react';
 import { ShareChatModal } from './ShareChatModal';
 import { DislikeFeedbackModal } from './DislikeFeedbackModal';
+import { useToast } from '../../context/ToastContext';
 
 export const ChatbotScreen: React.FC = () => {
   const {
@@ -46,6 +47,7 @@ export const ChatbotScreen: React.FC = () => {
     currentCommune,
     navigateTo,
   } = useApp();
+  const { showToast, dismissToast } = useToast();
 
   const [inputQuestion, setInputQuestion] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -96,21 +98,35 @@ export const ChatbotScreen: React.FC = () => {
 
     setInputQuestion('');
     setIsSubmitting(true);
+    const loadingToastId = showToast('loading', 'Trợ lý AI đang tra cứu tài liệu...', 0);
 
-    let targetSessionId = activeChatSessionId;
-    if (!targetSessionId || !activeSession) {
-      targetSessionId = createNewChatSession(text);
-    } else {
-      await sendChatMessage(text);
+    try {
+      const targetSessionId = activeChatSessionId;
+      if (!targetSessionId || !activeSession) {
+        createNewChatSession(text);
+      } else {
+        await sendChatMessage(text);
+      }
+      dismissToast(loadingToastId);
+      showToast('success', 'Đã nhận câu hỏi và cập nhật câu trả lời.');
+    } catch {
+      dismissToast(loadingToastId);
+      showToast('error', 'Chưa gửi được câu hỏi. Vui lòng thử lại.');
+      setInputQuestion(text);
+    } finally {
+      setIsSubmitting(false);
     }
-
-    setIsSubmitting(false);
   };
 
-  const handleCopy = (id: string, text: string) => {
-    navigator.clipboard.writeText(text);
-    setCopiedMessageId(id);
-    setTimeout(() => setCopiedMessageId(null), 2000);
+  const handleCopy = async (id: string, text: string) => {
+    try {
+      await navigator.clipboard.writeText(text);
+      setCopiedMessageId(id);
+      showToast('success', 'Đã sao chép câu trả lời.');
+      setTimeout(() => setCopiedMessageId(null), 2000);
+    } catch {
+      showToast('error', 'Không thể sao chép câu trả lời. Vui lòng thử lại.');
+    }
   };
 
   const handleSpeak = (text: string) => {
@@ -136,7 +152,7 @@ export const ChatbotScreen: React.FC = () => {
                 const newId = createNewChatSession();
                 setActiveChatSessionId(newId);
               }}
-              className="w-full py-2.5 px-3 rounded-xl bg-red-600 hover:bg-red-700 text-white font-bold text-xs shadow-sm flex items-center justify-center gap-2 transition-colors"
+              className="w-full py-2.5 px-3 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs shadow-sm flex items-center justify-center gap-2 transition-colors"
             >
               <Plus className="w-4 h-4" />
               <span>Cuộc hội thoại mới</span>
@@ -150,7 +166,7 @@ export const ChatbotScreen: React.FC = () => {
                 value={historySearch}
                 onChange={(e) => setHistorySearch(e.target.value)}
                 placeholder="Tìm kiếm lịch sử..."
-                className="w-full pl-8 pr-3 py-1.5 rounded-lg border border-slate-200 text-xs bg-white focus:outline-hidden focus:ring-1 focus:ring-red-500"
+                className="w-full pl-8 pr-3 py-1.5 rounded-lg border border-slate-200 text-xs bg-white focus:outline-hidden focus:ring-1 focus:ring-blue-500"
               />
             </div>
           </div>
@@ -163,12 +179,12 @@ export const ChatbotScreen: React.FC = () => {
                 onClick={() => setActiveChatSessionId(session.id)}
                 className={`p-2.5 rounded-xl text-xs transition-colors flex items-center justify-between group cursor-pointer ${
                   activeChatSessionId === session.id
-                    ? 'bg-red-50 text-red-900 font-bold border border-red-200'
+                    ? 'bg-blue-50 text-blue-900 font-bold border border-blue-200'
                     : 'text-slate-700 hover:bg-slate-200/60'
                 }`}
               >
                 <div className="flex items-center gap-2 min-w-0 flex-1">
-                  {session.isPinned && <Pin className="w-3 h-3 text-red-600 shrink-0 fill-red-600" />}
+                  {session.isPinned && <Pin className="w-3 h-3 text-blue-600 shrink-0 fill-blue-600" />}
                   {editingSessionId === session.id ? (
                     <input
                       type="text"
@@ -236,7 +252,7 @@ export const ChatbotScreen: React.FC = () => {
           {/* Top Bar of Active Chat */}
           <div className="p-4 border-b border-slate-200 flex items-center justify-between">
             <div className="flex items-center gap-3">
-              <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-red-600 to-rose-600 flex items-center justify-center text-white shadow-xs">
+              <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-sky-500 to-blue-600 flex items-center justify-center text-white shadow-xs">
                 <Bot className="w-5 h-5" />
               </div>
               <div>
@@ -271,7 +287,7 @@ export const ChatbotScreen: React.FC = () => {
             {!activeSession || activeSession.messages.length === 0 ? (
               /* Empty state with greeting & 4 suggestion cards (Screen 22 spec) */
               <div className="max-w-2xl mx-auto py-10 text-center space-y-6">
-                <div className="w-16 h-16 rounded-3xl bg-red-100 text-red-600 flex items-center justify-center mx-auto shadow-md">
+                <div className="w-16 h-16 rounded-3xl bg-blue-100 text-blue-600 flex items-center justify-center mx-auto shadow-md">
                   <Sparkles className="w-8 h-8" />
                 </div>
                 <div>
@@ -288,9 +304,9 @@ export const ChatbotScreen: React.FC = () => {
                     <button
                       key={idx}
                       onClick={() => handleSend(card.prompt)}
-                      className="p-4 rounded-2xl bg-slate-50 hover:bg-red-50/60 border border-slate-200 hover:border-red-300 transition-all text-left group"
+                      className="p-4 rounded-2xl bg-slate-50 hover:bg-blue-50/70 border border-slate-200 hover:border-blue-300 transition-all text-left group"
                     >
-                      <h4 className="text-xs font-bold text-slate-900 group-hover:text-red-700 transition-colors">
+                      <h4 className="text-xs font-bold text-slate-900 group-hover:text-blue-700 transition-colors">
                         {card.title}
                       </h4>
                       <p className="text-[11px] text-slate-500 mt-1">{card.desc}</p>
@@ -308,7 +324,7 @@ export const ChatbotScreen: React.FC = () => {
                   <div
                     className={`max-w-[85%] rounded-3xl p-4 sm:p-5 shadow-xs ${
                       msg.role === 'user'
-                        ? 'bg-red-600 text-white rounded-tr-xs'
+                        ? 'bg-blue-700 text-white rounded-tr-xs'
                         : 'bg-white border border-slate-200 rounded-tl-xs'
                     }`}
                   >
@@ -414,9 +430,9 @@ export const ChatbotScreen: React.FC = () => {
             {isSubmitting && (
               <div className="flex items-center gap-3 p-4 bg-slate-50 rounded-2xl w-fit border border-slate-200">
                 <div className="flex space-x-1">
-                  <div className="w-2 h-2 rounded-full bg-red-600 animate-bounce"></div>
-                  <div className="w-2 h-2 rounded-full bg-red-600 animate-bounce [animation-delay:0.2s]"></div>
-                  <div className="w-2 h-2 rounded-full bg-red-600 animate-bounce [animation-delay:0.4s]"></div>
+                  <div className="w-2 h-2 rounded-full bg-blue-600 animate-bounce"></div>
+                  <div className="w-2 h-2 rounded-full bg-blue-600 animate-bounce [animation-delay:0.2s]"></div>
+                  <div className="w-2 h-2 rounded-full bg-blue-600 animate-bounce [animation-delay:0.4s]"></div>
                 </div>
                 <span className="text-xs text-slate-500 font-medium">Trợ lý AI đang tra cứu văn bản...</span>
               </div>
@@ -435,7 +451,7 @@ export const ChatbotScreen: React.FC = () => {
               <button
                 type="button"
                 onClick={() => alert('Đang kích hoạt micro thu âm giọng nói (Chức năng Voice Input)...')}
-                className="p-3 rounded-2xl bg-white border border-slate-300 text-slate-500 hover:text-red-600 hover:bg-red-50 transition-colors shadow-xs"
+                className="p-3 rounded-2xl bg-white border border-slate-300 text-slate-500 hover:text-blue-600 hover:bg-blue-50 transition-colors shadow-xs"
                 title="Hỏi bằng giọng nói"
               >
                 <Mic className="w-4 h-4" />
@@ -446,16 +462,19 @@ export const ChatbotScreen: React.FC = () => {
                 value={inputQuestion}
                 onChange={(e) => setInputQuestion(e.target.value)}
                 placeholder="Nhập câu hỏi về thủ tục, văn bản pháp luật hoặc chính sách cấp xã..."
-                className="flex-1 px-4 py-3 rounded-2xl border border-slate-300 bg-white text-sm focus:ring-2 focus:ring-red-500 focus:outline-hidden shadow-xs"
+                className="flex-1 px-4 py-3 rounded-2xl border border-slate-300 bg-white text-sm focus:ring-2 focus:ring-blue-500 focus:outline-hidden shadow-xs"
               />
 
               <button
                 type="submit"
                 disabled={!inputQuestion.trim() || isSubmitting}
-                className="p-3 rounded-2xl bg-red-600 hover:bg-red-700 disabled:opacity-40 text-white font-bold transition-all shadow-md shadow-red-600/20"
+                className="p-3 rounded-2xl bg-blue-600 hover:bg-blue-700 disabled:opacity-40 text-white font-bold transition-all shadow-md shadow-blue-600/20"
                 title="Gửi câu hỏi"
+                aria-label={isSubmitting ? 'Đang gửi câu hỏi' : 'Gửi câu hỏi'}
               >
-                <Send className="w-4 h-4" />
+                {isSubmitting
+                  ? <span className="block h-4 w-4 rounded-full border-2 border-white/40 border-t-white animate-spin" />
+                  : <Send className="w-4 h-4" />}
               </button>
             </form>
 
@@ -464,7 +483,7 @@ export const ChatbotScreen: React.FC = () => {
               <button
                 type="button"
                 onClick={() => navigateTo(3)}
-                className="text-red-600 hover:underline font-semibold"
+                className="text-blue-600 hover:underline font-semibold"
               >
                 Cần hỗ trợ chuyên sâu? Liên hệ cán bộ xã (3)
               </button>
@@ -475,7 +494,7 @@ export const ChatbotScreen: React.FC = () => {
         {/* Right Column: Question Table of Contents (TOC) */}
         <div className="w-64 bg-slate-50 border-l border-slate-200 p-4 shrink-0 hidden xl:flex flex-col">
           <h4 className="font-bold text-xs text-slate-900 uppercase tracking-wider mb-3 flex items-center gap-1.5">
-            <ClipboardList className="w-3.5 h-3.5 text-red-600" />
+            <ClipboardList className="w-3.5 h-3.5 text-blue-600" />
             <span>Mục lục câu hỏi</span>
           </h4>
 
@@ -486,9 +505,9 @@ export const ChatbotScreen: React.FC = () => {
                 .map((q, idx) => (
                   <div
                     key={q.id}
-                    className="p-2 rounded-xl bg-white border border-slate-200 text-slate-700 font-medium hover:border-red-300 transition-colors cursor-pointer"
+                    className="p-2 rounded-xl bg-white border border-slate-200 text-slate-700 font-medium hover:border-blue-300 transition-colors cursor-pointer"
                   >
-                    <span className="font-bold text-red-600 mr-1.5">#{idx + 1}</span>
+                    <span className="font-bold text-blue-600 mr-1.5">#{idx + 1}</span>
                     <span className="line-clamp-2">{q.content}</span>
                   </div>
                 ))
@@ -544,6 +563,7 @@ export const ChatbotScreen: React.FC = () => {
                 onClick={() => {
                   deleteChatSession(deleteConfirmSessionId);
                   setDeleteConfirmSessionId(null);
+                  showToast('success', 'Đã xóa cuộc hội thoại.');
                 }}
                 className="px-4 py-2 rounded-xl bg-rose-600 text-white font-bold text-xs shadow-sm hover:bg-rose-700"
               >

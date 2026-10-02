@@ -118,13 +118,13 @@ export const Navbar: React.FC = () => {
               onClick={() => navigateTo(1)}
               className="flex items-center gap-2.5 text-left group transition-transform"
             >
-              <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-red-600 via-rose-600 to-amber-500 flex items-center justify-center text-white shadow-md shadow-red-500/20 group-hover:scale-105 transition-all">
+              <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-blue-600 via-indigo-600 to-sky-500 flex items-center justify-center text-white shadow-md shadow-blue-500/20 group-hover:scale-105 transition-all">
                 <Landmark className="w-5 h-5" />
               </div>
               <div>
                 <div className="flex items-center gap-1.5">
                   <span className="font-extrabold text-base tracking-tight text-slate-900">AI CẤP XÃ</span>
-                  <span className="text-[10px] font-bold uppercase tracking-wider px-1.5 py-0.5 rounded bg-red-100 text-red-700">
+                  <span className="text-[10px] font-bold uppercase tracking-wider px-1.5 py-0.5 rounded bg-blue-100 text-blue-700">
                     Chính quyền số
                   </span>
                 </div>
@@ -152,11 +152,11 @@ export const Navbar: React.FC = () => {
                     onClick={() => (item.onClick ? item.onClick() : navigateTo(item.screen))}
                     className={`px-3 py-2 rounded-lg text-sm font-medium transition-all flex items-center gap-1.5 ${
                       isActive
-                        ? 'bg-red-50 text-red-700 font-bold border-b-2 border-red-600'
+                        ? 'bg-blue-50 text-blue-700 font-bold border-b-2 border-blue-600'
                         : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100/80'
                     }`}
                   >
-                    <IconComponent className={`w-4 h-4 ${isActive ? 'text-red-600' : 'text-slate-600'}`} />
+                    <IconComponent className={`w-4 h-4 ${isActive ? 'text-blue-600' : 'text-slate-600'}`} />
                     <span>{item.label}</span>
                   </button>
                 );
@@ -200,7 +200,7 @@ export const Navbar: React.FC = () => {
                     }}
                     className="flex items-center gap-2 p-1.5 rounded-xl hover:bg-slate-100 transition-all border border-transparent hover:border-slate-200"
                   >
-                    <div className="w-8 h-8 rounded-full overflow-hidden bg-slate-200 flex items-center justify-center font-bold text-xs text-slate-700 ring-2 ring-red-500/20">
+                    <div className="w-8 h-8 rounded-full overflow-hidden bg-slate-200 flex items-center justify-center font-bold text-xs text-slate-700 ring-2 ring-blue-500/20">
                       {currentUser.avatarUrl ? (
                         <img src={currentUser.avatarUrl} alt={currentUser.fullName} className="w-full h-full object-cover" />
                       ) : (
@@ -280,7 +280,7 @@ export const Navbar: React.FC = () => {
                       else navigateTo(item.screen);
                     }}
                     className={`w-full flex items-center gap-2.5 px-3 py-2 rounded-lg text-sm font-medium ${
-                      isActive ? 'bg-red-50 text-red-700 font-bold' : 'text-slate-700 hover:bg-slate-100'
+                      isActive ? 'bg-blue-50 text-blue-700 font-bold' : 'text-slate-700 hover:bg-slate-100'
                     }`}
                   >
                     <IconComponent className="w-4 h-4" />
@@ -312,7 +312,7 @@ export const Navbar: React.FC = () => {
                   setShowLogoutConfirmModal(false);
                   useApp().logout();
                 }}
-                className="px-4 py-2 rounded-xl text-sm font-semibold text-white bg-red-600 hover:bg-red-700 transition-colors shadow-xs"
+                className="px-4 py-2 rounded-xl text-sm font-semibold text-white bg-blue-600 hover:bg-blue-700 transition-colors shadow-xs"
               >
                 Đăng xuất
               </button>

@@ -92,11 +92,11 @@ export const DocumentDetailScreen: React.FC = () => {
       {/* Breadcrumb & Navigation */}
       <div className="flex items-center justify-between flex-wrap gap-4">
         <div className="flex items-center gap-2 text-xs text-slate-500">
-          <button onClick={() => navigateTo(1)} className="hover:text-red-600">
+          <button onClick={() => navigateTo(1)} className="hover:text-blue-600">
             Trang chủ
           </button>
           <span>/</span>
-          <button onClick={() => navigateTo(4)} className="hover:text-red-600">
+          <button onClick={() => navigateTo(4)} className="hover:text-blue-600">
             Văn bản, chính sách
           </button>
           <span>/</span>
@@ -118,7 +118,7 @@ export const DocumentDetailScreen: React.FC = () => {
         <div className="lg:col-span-8 bg-white rounded-3xl border border-slate-200 shadow-sm p-6 sm:p-8 space-y-6">
           <div className="border-b border-slate-100 pb-5">
             <div className="flex items-center gap-2 mb-2">
-              <span className="font-mono text-xs font-bold text-red-600 px-2 py-0.5 rounded-md bg-red-50 border border-red-200">
+              <span className="font-mono text-xs font-bold text-blue-700 px-2 py-0.5 rounded-md bg-blue-50 border border-blue-200">
                 {doc.docNumber}
               </span>
               {getScopeBadge(doc.scope)}
@@ -174,7 +174,7 @@ export const DocumentDetailScreen: React.FC = () => {
         <div className="lg:col-span-4 space-y-6">
           <div className="bg-white rounded-3xl border border-slate-200 shadow-sm p-6 space-y-4">
             <h3 className="text-sm font-bold text-slate-900 border-b border-slate-100 pb-3 flex items-center gap-2">
-              <FileText className="w-4 h-4 text-red-600" />
+              <FileText className="w-4 h-4 text-blue-600" />
               <span>Thuộc tính văn bản</span>
             </h3>
 
@@ -234,7 +234,7 @@ export const DocumentDetailScreen: React.FC = () => {
       <div className="fixed bottom-6 right-6 z-30">
         <button
           onClick={handleAskChatbot}
-          className="px-5 py-3.5 rounded-2xl bg-gradient-to-r from-red-600 to-rose-600 hover:from-red-700 hover:to-rose-700 text-white font-bold text-sm shadow-xl shadow-red-600/30 flex items-center gap-2.5 transition-all hover:scale-105"
+          className="px-5 py-3.5 rounded-2xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-bold text-sm shadow-xl shadow-blue-600/30 flex items-center gap-2.5 transition-all hover:scale-105"
         >
           <Bot className="w-5 h-5" />
           <span>Hỏi Chatbot về văn bản này</span>

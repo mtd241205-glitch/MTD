@@ -93,11 +93,11 @@ export const ProcedureDetailScreen: React.FC = () => {
       {/* Breadcrumb */}
       <div className="flex items-center justify-between flex-wrap gap-4">
         <div className="flex items-center gap-2 text-xs text-slate-500">
-          <button onClick={() => navigateTo(1)} className="hover:text-red-600">
+          <button onClick={() => navigateTo(1)} className="hover:text-blue-600">
             Trang chủ
           </button>
           <span>/</span>
-          <button onClick={() => navigateTo(6)} className="hover:text-red-600">
+          <button onClick={() => navigateTo(6)} className="hover:text-blue-600">
             Thủ tục hành chính
           </button>
           <span>/</span>
@@ -120,7 +120,7 @@ export const ProcedureDetailScreen: React.FC = () => {
           {/* Header Card */}
           <div className="bg-white rounded-3xl border border-slate-200 shadow-sm p-6 sm:p-8 space-y-4">
             <div className="flex items-center gap-2 flex-wrap">
-              <span className="font-mono text-xs font-bold text-red-700 bg-red-50 border border-red-200 px-2.5 py-1 rounded-lg">
+              <span className="font-mono text-xs font-bold text-blue-700 bg-blue-50 border border-blue-200 px-2.5 py-1 rounded-lg">
                 Mã TTHC: {proc.docNumber}
               </span>
               {getScopeBadge(proc.scope)}
@@ -168,7 +168,7 @@ export const ProcedureDetailScreen: React.FC = () => {
               className="w-full p-6 text-left flex items-center justify-between font-bold text-base text-slate-900 hover:bg-slate-50 transition-colors"
             >
               <div className="flex items-center gap-3">
-                <div className="w-8 h-8 rounded-xl bg-red-100 text-red-600 flex items-center justify-center text-sm font-black">
+                <div className="w-8 h-8 rounded-xl bg-blue-100 text-blue-600 flex items-center justify-center text-sm font-black">
                   1
                 </div>
                 <span>Trình tự thực hiện các bước</span>
@@ -181,7 +181,7 @@ export const ProcedureDetailScreen: React.FC = () => {
                 {proc.steps && proc.steps.length > 0 ? (
                   proc.steps.map((st) => (
                     <div key={st.step} className="flex items-start gap-4 p-4 rounded-2xl bg-slate-50 border border-slate-100">
-                      <span className="w-7 h-7 rounded-full bg-red-600 text-white flex items-center justify-center font-bold text-xs shrink-0 mt-0.5 shadow-sm">
+                      <span className="w-7 h-7 rounded-full bg-blue-600 text-white flex items-center justify-center font-bold text-xs shrink-0 mt-0.5 shadow-sm">
                         {st.step}
                       </span>
                       <div>
@@ -241,7 +241,7 @@ export const ProcedureDetailScreen: React.FC = () => {
                 {proc.dossierChecklist && proc.dossierChecklist.length > 0 ? (
                   proc.dossierChecklist.map((item, idx) => (
                     <label key={idx} className="flex items-start gap-3 p-3 rounded-xl bg-slate-50 hover:bg-slate-100/70 border border-slate-100 cursor-pointer transition-colors">
-                      <input type="checkbox" className="mt-0.5 rounded text-red-600 focus:ring-red-500" />
+                      <input type="checkbox" className="mt-0.5 rounded text-blue-600 focus:ring-blue-500" />
                       <span className="text-xs text-slate-800 font-medium leading-relaxed">{item}</span>
                     </label>
                   ))
@@ -283,7 +283,7 @@ export const ProcedureDetailScreen: React.FC = () => {
                     <span className="text-slate-800 font-medium">{lb}</span>
                     <button
                       onClick={() => navigateTo(4)}
-                      className="text-red-600 font-semibold hover:underline flex items-center gap-1 shrink-0 ml-2"
+                      className="text-blue-600 font-semibold hover:underline flex items-center gap-1 shrink-0 ml-2"
                     >
                       <span>Tra cứu văn bản</span>
                       <ExternalLink className="w-3 h-3" />
@@ -301,7 +301,7 @@ export const ProcedureDetailScreen: React.FC = () => {
         <div className="lg:col-span-4 sticky top-24 space-y-6">
           <div className="bg-white rounded-3xl border border-slate-200 shadow-sm p-6 space-y-4">
             <h3 className="text-sm font-bold text-slate-900 flex items-center gap-2 border-b border-slate-100 pb-3">
-              <Layers className="w-4 h-4 text-red-600" />
+              <Layers className="w-4 h-4 text-blue-600" />
               <span>Mục lục thủ tục</span>
             </h3>
 
@@ -350,7 +350,7 @@ export const ProcedureDetailScreen: React.FC = () => {
       <div className="fixed bottom-6 right-6 z-30">
         <button
           onClick={handleAskChatbot}
-          className="px-5 py-3.5 rounded-2xl bg-gradient-to-r from-red-600 to-rose-600 hover:from-red-700 hover:to-rose-700 text-white font-bold text-sm shadow-xl shadow-red-600/30 flex items-center gap-2.5 transition-all hover:scale-105"
+          className="px-5 py-3.5 rounded-2xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-bold text-sm shadow-xl shadow-blue-600/30 flex items-center gap-2.5 transition-all hover:scale-105"
         >
           <Bot className="w-5 h-5" />
           <span>Hỏi Chatbot về thủ tục này</span>

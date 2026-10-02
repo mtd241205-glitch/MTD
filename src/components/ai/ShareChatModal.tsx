@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useApp } from '../../context/AppContext';
 import { Share2, Copy, Check, AlertTriangle, X, Lock } from 'lucide-react';
+import { useToast } from '../../context/ToastContext';
 
 interface ShareChatModalProps {
   sessionId: string;
@@ -14,14 +15,20 @@ export const ShareChatModal: React.FC<ShareChatModalProps> = ({
   onClose,
 }) => {
   const { shareChatSession, navigateTo } = useApp();
+  const { showToast } = useToast();
   const [copied, setCopied] = useState(false);
 
   const shareLink = shareChatSession(sessionId);
 
-  const handleCopy = () => {
-    navigator.clipboard.writeText(shareLink);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
+  const handleCopy = async () => {
+    try {
+      await navigator.clipboard.writeText(shareLink);
+      setCopied(true);
+      showToast('success', 'Đã sao chép liên kết chia sẻ.');
+      setTimeout(() => setCopied(false), 2000);
+    } catch {
+      showToast('error', 'Không thể sao chép liên kết. Vui lòng thử lại.');
+    }
   };
 
   return (
@@ -69,7 +76,7 @@ export const ShareChatModal: React.FC<ShareChatModalProps> = ({
             />
             <button
               onClick={handleCopy}
-              className="px-4 py-2.5 rounded-xl bg-red-600 hover:bg-red-700 text-white font-bold text-xs flex items-center gap-1.5 transition-colors shadow-sm shrink-0"
+              className="px-4 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs flex items-center gap-1.5 transition-colors shadow-sm shrink-0"
             >
               {copied ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
               <span>{copied ? 'Đã sao chép' : 'Sao chép'}</span>
