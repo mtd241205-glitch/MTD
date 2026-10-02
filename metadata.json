@@ -1,0 +1,8 @@
+{
+  "name": "Remix AI Cấp Xã - Nền Tảng AI Trợ Lý Hành Chính \u0026 Dịch Vụ Công Cấp Xã",
+  "description": "Hệ thống AI chuyển đổi số cấp xã toàn diện phục vụ Người dân tra cứu chính sách thủ tục, Cán bộ tra cứu tài liệu nội bộ, Quản lý xã điều hành và Đội phát triển quản trị đa xã.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
